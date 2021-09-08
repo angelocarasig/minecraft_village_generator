@@ -47,7 +47,7 @@ def generateStairs(x,y,z,lowest,axis,dir=1):
             currHeight = lowest
             top = mc.getHeight(newx,newz+j)
             if top < lowest:
-                mc.setBlocks(newx,-91,newz+j,newx,currHeight-1,newz+j+1,1)
+                mc.setBlocks(newx,-90,newz+j,newx,currHeight-1,newz+j+1,1)
                 continue
             while mc.getBlock(newx,top,newz+j) in treeStuff:
                 top = top - 1
