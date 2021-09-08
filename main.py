@@ -1,3 +1,4 @@
+import Foundation
 import Fountain
 import Floors
 from mcpi import minecraft, block
@@ -5,7 +6,11 @@ from mcpi import minecraft, block
 mc = minecraft.Minecraft.create()
 
 x, y, z = mc.player.getPos()
+
+Foundation.buildFoundation(x,y,z)
+
 Fountain.build_fountain()
+
 z -= 5
 
 #CENTER POSITION:
