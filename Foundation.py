@@ -8,6 +8,7 @@ half = 50 #Half the width of the cube generated
 treeStuff = [0, 18, 161, 17, 162, 99, 100] #Item ID's that should not be counted as floor (for stair generation)
 amountOut = 10 #How long the staris should extend out to the circle
 
+
 def clearLand(x,y,z):   #Clear land
     currHeight = mc.getHeight(x, z)
     lowest = currHeight
@@ -73,8 +74,6 @@ def generateStairs(x,y,z,lowest,axis,dir=1):
                 continue
             while mc.getBlock(newx+j,top,newz) in treeStuff:
                 top = top - 1
-            if top < lowest:
-                top = lowest
             step = int((top-lowest)/amountOut)
             remainder = (top-lowest)%amountOut
             for i in range(amountOut,0,-1):
@@ -91,4 +90,3 @@ def buildFoundation(x,y,z):
     generateStairs(x+(half+1),y,z-half,lowest,'x',-1)
     generateStairs(x-half,y,z-(half+1),lowest,'y',1)
     generateStairs(x-half,y,z+(half+1),lowest,'y',-1)
-
