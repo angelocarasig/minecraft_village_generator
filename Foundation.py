@@ -74,6 +74,8 @@ def generateStairs(x,y,z,lowest,axis,dir=1):
                 continue
             while mc.getBlock(newx+j,top,newz) in treeStuff:
                 top = top - 1
+            if top < lowest:
+                top = lowest
             step = int((top-lowest)/amountOut)
             remainder = (top-lowest)%amountOut
             for i in range(amountOut,0,-1):

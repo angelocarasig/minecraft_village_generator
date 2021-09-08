@@ -1,11 +1,11 @@
-from mcpi import minecraft
+from mcpi import entity, minecraft
 import random
 import math
 
 mc = minecraft.Minecraft.create()
+while True:
+    x, y, z = mc.player.getPos()
+    mc.spawnEntity(x,y,z,entity.PRIMED_TNT)
 
-width = 3
-x, y, z = mc.player.getPos()
 
-mc.setBlocks(x,y-4,z,x,y+4,z+30,0)
-mc.setBlocks(x,y-4,z,x,y-1,z+30,9)
+
