@@ -62,8 +62,10 @@ def genHouse(x,y,z,baseSize,baseMat,wallHeight, wallMat, roofHeight, roofMat,lig
         mc.setBlocks(x+(baseSize*2)+int(baseSize/2),y+1,z+baseSize,x+(baseSize*2)-int(baseSize/2),y+2+doorHeight,z+baseSize,block.AIR) #making door hole for back right room
         mc.setBlocks(x+baseSize,y+1,z+(baseSize*2)+int(baseSize/2),x+baseSize,y+2+doorHeight,z+(baseSize*2)-int(baseSize/2),block.AIR) #making door hole for back right room
 
-       
+        oldY = y
         for i in range(1,stories):  #generates second stories
+            #genStairs(x+(baseSize+1),y,(z+(baseSize-1)+(wallHeight+2)),height=wallHeight+2,width = 1,facing='north')
+            
             if roofHeight == 1: #Makes it generate one lower if the roof it too low
                 y = y+wallHeight+1
             else:
@@ -76,5 +78,26 @@ def genHouse(x,y,z,baseSize,baseMat,wallHeight, wallMat, roofHeight, roofMat,lig
             genHouse(x+(baseSize*2),y,z+(baseSize*2),baseSize,baseMat,wallHeight, wallMat, roofHeight, roofMat,lightMat)
             mc.setBlocks(x+(baseSize*2)+int(baseSize/2),y+1,z+baseSize,x+(baseSize*2)-int(baseSize/2),y+2+doorHeight,z+baseSize,block.AIR) #making door hole back right room
             mc.setBlocks(x+baseSize,y+1,z+(baseSize*2)+int(baseSize/2),x+baseSize,y+2+doorHeight,z+(baseSize*2)-int(baseSize/2),block.AIR) #making door hole back right room
+            genStairs(x+(baseSize*2),oldY+1,z+baseSize+wallHeight,height=wallHeight+1,width=1,facing='north')
+
+
+def genStairs(x,y,z,height,width = 2,facing = 'east',mat = 1):
+    if facing == 'south':
+        for i in range(0,height):
+            mc.setBlocks(x-width,y+i,z+i,x+width,y+i,z+i,mat)
+            mc.setBlocks(x-width,y+i,z+i,x+width,y+i,z+i,mat)
+    elif facing == 'east':
+        for i in range(0,height):
+            mc.setBlocks(x+i,y+i,z-width,x+i,y+i,z+width,mat)
+    elif facing == 'west':
+        for i in range(0,height):
+            mc.setBlocks(x-i,y+i,z-width,x-i,y+i,z+width,mat)
+    elif facing == 'north':
+        for i in range(0,height):
+            mc.setBlocks(x-width,y+i,z-i,x+width,y+i,z-i,mat)
+    else:
+        print('invalid direction')
+    mc.setBlocks
+
 
 genHouse(x+5,y,z,baseSize,baseMat,wallHeight, wallMat, roofHeight, roofMat,lightMat,True)
