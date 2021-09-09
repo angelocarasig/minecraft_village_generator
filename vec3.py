@@ -31,7 +31,7 @@ class Vec(object):
         return Vec(-self.x, -self.y, -self.z)
 
     def __sub__(self, v):
-        return self + (-v)
+        return Vec(self.x - v.x, self.y - v.y, self.z - v.z)
 
     def __mul__(self, v):
         if isinstance(v, Vec):
