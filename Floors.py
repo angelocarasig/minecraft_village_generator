@@ -1,3 +1,4 @@
+from mcpi import minecraft
 from mcpi.minecraft import Minecraft
 from mcpi import block
 import concurrent.futures
@@ -5,9 +6,8 @@ import threading
 import random
 import math
 
-mc = Minecraft.create()
-
 def get_compass_direction():
+    mc = Minecraft.create()
     angle = mc.player.getRotation()
     mc.postToChat("Angle:")
     mc.postToChat(angle)
@@ -20,14 +20,13 @@ def get_compass_direction():
     if 0 + 45 < angle <= 90 + 45:
         return "West"
 
-#TODO: Change setBlock to setBlocks to make it maybe faster
-#TODO: Make paths longer and vary in amount of side paths
-
 LENGTH = 20
 
-x, y, z = mc.player.getPos()
+
+# x, y, z = mc.player.getPos()
 
 def path_builder(x, y, z, direction="North"):
+    mc = Minecraft.create()
     seed_random = 1
     for _ in range(20):
         curr_block = mc.getBlock(x, y - 1, z)
@@ -71,6 +70,7 @@ def path_builder(x, y, z, direction="North"):
             if direction == "North" or direction == "South":
                 if temp_val == 0:
                     mc.setBlocks(x-1, y-1, z, x-4, y-1, z, block.COBBLESTONE)
+
                 else:
                     mc.setBlocks(x+1, y-1, z, x+4, y-1, z, block.COBBLESTONE)
             else:
@@ -92,14 +92,27 @@ def path_builder(x, y, z, direction="North"):
         else:
             x -= 1
 
-# directions = ["North", "East", "South", "West"]
 
-# # for direction in directions:
-# #     thread = threading.Thread(target=path_builder, args=(direction,))
-# #     thread.start()
+#Solo testing:
+directions = ["North", "East", "South", "West"]
 
-# #     #For some reason we can't let the threads go at the same time, no clue why
-# #     thread.join()
+curr_pos_x, curr_pos_y, curr_pos_z = minecraft.Minecraft.create().player.getPos()
 
-# for direction in directions:
-#     path_builder(x, y, z, direction)
+for direction in directions:
+    thread = threading.Thread(target=path_builder, args=(curr_pos_x, curr_pos_y, curr_pos_z, direction,))
+    thread.start()
+
+
+thread_1 = threading.Thread(target=path_builder, args=(curr_pos_x, curr_pos_y, curr_pos_z, "North",))
+thread_2 = threading.Thread(target=path_builder, args=(curr_pos_x, curr_pos_y, curr_pos_z, "East",))
+thread_3 = threading.Thread(target=path_builder, args=(curr_pos_x, curr_pos_y, curr_pos_z, "South",))
+thread_4 = threading.Thread(target=path_builder, args=(curr_pos_x, curr_pos_y, curr_pos_z, "West",))
+
+thread_1.start()
+thread_2.start()
+thread_3.start()
+thread_4.start()
+
+
+#     #For some reason we can't let the threads go at the same time, no clue why
+#     thread.join()
