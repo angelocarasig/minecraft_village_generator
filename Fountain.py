@@ -4,6 +4,8 @@ from time import sleep
 import random
 import threading
 
+# test
+
 mc = Minecraft.create()
 
 def get_compass_direction():
