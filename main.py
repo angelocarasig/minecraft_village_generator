@@ -1,15 +1,16 @@
 import Foundation
 import Fountain
-import Floors
+from Floors import path_builder
 from mcpi import minecraft, block
+import threading
 
 mc = minecraft.Minecraft.create()
 
 x, y, z = mc.player.getPos()
 
-Foundation.buildFoundation(x,y,z)
+x, y, z = Foundation.buildFoundation(x,y,z)
 
-Fountain.build_fountain()
+Fountain.build_fountain(x, y, z)
 
 z -= 5
 
@@ -20,22 +21,22 @@ z_main = z
 
 #BUILD ROADS:
 
-#North
 z -= 4
-Floors.path_builder(x, y, z, "North")
+thread_north = threading.Thread(target=path_builder, args=(x, y, z, "North",))
+thread_north.start()
 z = z_main
 
-#East
 x += 4
-Floors.path_builder(x, y, z, "East")
+thread_east = threading.Thread(target=path_builder, args=(x, y, z, "East",))
+thread_east.start()
 x = x_main
 
-#South
 z += 4
-Floors.path_builder(x, y, z, "South")
+thread_south = threading.Thread(target=path_builder, args=(x, y, z, "South",))
+thread_south.start()
 z = z_main
 
-#West
 x -= 4
-Floors.path_builder(x, y, z, "West")
+thread_west = threading.Thread(target=path_builder, args=(x, y, z, "West",))
+thread_west.start()
 x = x_main

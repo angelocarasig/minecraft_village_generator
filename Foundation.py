@@ -92,3 +92,4 @@ def buildFoundation(x,y,z):
     generateStairs(x+(half+1),y,z-half,lowest,'x',-1)
     generateStairs(x-half,y,z-(half+1),lowest,'y',1)
     generateStairs(x-half,y,z+(half+1),lowest,'y',-1)
+    return x, lowest + 1, z
