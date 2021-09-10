@@ -22,8 +22,7 @@ def get_compass_direction():
 current_direction = get_compass_direction()
 
 #Looks like just float vals
-def build_fountain(block_type = block.DIAMOND_BLOCK, light_type = block.GLOWSTONE_BLOCK, path = block.GRASS):
-    x, y, z = mc.player.getPos()
+def build_fountain(x, y, z, block_type = block.DIAMOND_BLOCK, light_type = block.GLOWSTONE_BLOCK, path = block.GRASS):
     
     #Path
     x, y, z = x, y-1, z-5
@@ -60,8 +59,8 @@ def build_fountain(block_type = block.DIAMOND_BLOCK, light_type = block.GLOWSTON
 
     
 
-build_fountain(block_type = block.MOSS_STONE)
+# build_fountain(block_type = block.MOSS_STONE)
 
-#Middle of town should be center of fountain:
-x, y, z = mc.player.getPos()
-z = z - 5
+# #Middle of town should be center of fountain:
+# x, y, z = mc.player.getPos()
+# z = z - 5
